@@ -1,19 +1,30 @@
 # Final Project
+Contemporary American Poetry (post war to today)
 
-*This repository contains all the files needed for my final project including scratch notes*
+*This repository contains all the files including terrible notes and slow learning*
 
-I am collecting and performing unsupervised learning on American contemporary poets and their poetry
-Contemporary poetry scope (will be refined based on available data): last half century - 1950s (post war) to now.
+Assumptions:
 
-- New York school
-- Beat
-- Neo Surrealist
-- Projectivist
-- Language
-- Feminist - confessional
+1. Given a particulat text [scope to be defined], it is possible to predict the poetic style or movement it is classified as, or similar to.
+2. The most recent classification as agreed upon by "institutional" players actually presents the universe of Contemporary American Poetry accurately.
 
-Excluding Slam - or anything related to performativity of the works
+To gather and explore these clusters:
+* Beat (2)
+* Confessional (2)
+* New York (2)
+* Black Mountain (1)
+* Flarf
 
-I will then use the results to investigate conceptual trends in American contemporary poetry create graphs/charts 
-regarding the data. 
+### Extra Pastries: 
+Poetry Recommender tool
+To investigate conceptual trends in American contemporary poetry create graphs/charts from the data. 
 
+----
+__Design__
+
+Tables:
+
+Poems - table of unique poems, poem_identifier
+PoemAttributes - table of unique poem_identifier, poet_id, computed columns of results from text analysis
+PoemTags - table of poems classified and classification (poem_identifier, tag, tag_source)
+Poet - table of unique poets, poet_identifier, name, gender, year-born, affiliated_schools, day_jobs, degrees, race/ethnicity etc.
