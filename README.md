@@ -10,10 +10,21 @@ Assumptions:
 
 To gather and explore these clusters:
 * Beat (2)
+  - characterized by its intentional defiance of the literary forms and standard narrative values of previous generations.
+  - a means of questioning societal norms, challenging materialism, exploring various types of spirituality and even challenging sexual normatives all in a question to defy and expand consciousness and explore limitless creativity.
 * Confessional (2)
+  - I
+  - Private, subjective experiences
+  - attention to prosody": e.g. rhythm, intonation
 * New York (2)
-* Black Mountain (1)
-* Flarf
+  - surrealistic
+  - ironic
+* Black Mountain (1) aka. projective verse
+  - Composition by field" vs. "poetic composition based on received form and measure
+  - syntax be shaped by sound rather than sense, with nuances of breath and motion to be conveyed to the reader through typographical means
+  - one perception must immediately and directly lead to a further perception
+* Language Poetry
+  - focus on language, interaction with reader, engaging the reader into the process of producing meaning from the text
 
 ### Extra Pastries: 
 Poetry Recommender tool
