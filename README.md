@@ -3,12 +3,50 @@ Contemporary American Poetry (post war to today)
 
 *This repository contains all the files including terrible notes and slow learning*
 
+Analysis Plan:
+
+1. Specific Aim
+    Data Source
+        poetry.org
+        poetryfoundation
+    N (Sample Size)
+    Time Period (of data)
+        Poems published between WWII and now
+    1o Hypothesis
+        Given a particular poem text, it is possible to predict the poetic style or movement it is classified as.
+
+2. Methods
+    Outcome:
+        Poem classifications: Confessional vs Black Mountain, New York, Beat, vs Language
+    Predictors/Covar:
+        Type Token ratio
+        Alliteration
+        Concrete object words
+        Abstract concept words
+        NEED dict of Political words
+        Psychological words
+    Algorithms:
+        K means Cluster for unsupervised learning to see if 1o hyp.
+        if 1o hyp then either logistic regression or bayes
+
+3. Result
+    Given a particular poem text, it is possible to predict the poetic style or movement it is classified as.
+
+4. Limitations/Assumptions of my data
+    The most recent classification as agreed upon by "institutional" players actually represents the universe of Contemporary American Poetry accurately.
+
+5. Expected Hurdles
+    If 4. fails
+
+6. Where I need help
+    NLTK
+    Research Linguistics
+
+7. Going to have to repeat 1-6 for secondary hypothesis
+
 Assumptions:
 
-1. Given a particulat text [scope to be defined], it is possible to predict the poetic style or movement it is classified as, or similar to.
-2. The most recent classification as agreed upon by "institutional" players actually presents the universe of Contemporary American Poetry accurately.
-
-To gather and explore these clusters:
+Gather and explore these clusters:
 * Beat (2)
   - characterized by its intentional defiance of the literary forms and standard narrative values of previous generations.
   - a means of questioning societal norms, challenging materialism, exploring various types of spirituality and even challenging sexual normatives all in a question to defy and expand consciousness and explore limitless creativity.
@@ -34,12 +72,6 @@ To investigate conceptual trends in American contemporary poetry create graphs/c
 ----
 __Design__
 
-Tables:
-
-Poems - table of unique poems, poem_identifier
-
-PoemAttributes - table of unique poem_identifier, poet_id, computed columns of results from text analysis
-
-PoemTags - table of poems classified and classification (poem_identifier, tag, tag_source)
-
-Poet - table of unique poets, poet_identifier, name, gender, year-born, affiliated_schools, day_jobs, degrees, race/ethnicity etc.
+1. scrapy
+2. mongodb
+3. NLTK
