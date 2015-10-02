@@ -40,7 +40,6 @@ Analysis Plan:
 
 7. Going to have to repeat 1-6 for secondary hypothesis
 
-Assumptions:
 
 Gather and explore these clusters:
 * Beat (2)
