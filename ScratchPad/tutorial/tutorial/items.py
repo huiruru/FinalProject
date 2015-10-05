@@ -8,7 +8,34 @@
 import scrapy
 
 
-class DmozItem(scrapy.Item):
-    title = scrapy.Field()
-    link = scrapy.Field()
-    desc = scrapy.Field()
+class PoItem(scrapy.Item):
+    movement_name = scrapy.Field()
+    movement_url = scrapy.Field()
+    poet_name = scrapy.Field()
+    poet_url = scrapy.Field()
+    #poet_dob is the dob scraped from poet page
+    poet_dob = scrapy.Field()
+    #poet_from is the yrs scraped from movement
+    #some times no dob is available on poet page, 
+    #this is secondary source
+    poet_dob2 = scrapy.Field()
+    #a poet may be tagged with multiple movements
+    poet_tags = scrapy.Field()
+
+    #from poembio page
+    poet_basicbio = scrapy.Field()
+    poet_bio = scrapy.Field()
+
+    poet_positions = scrapy.Field()
+    poet_posyears = scrapy.Field()
+    poet_poems_url = scrapy.Field()
+
+    poem_yrpub = scrapy.Field()
+    poem_link = scrapy.Field()
+    poem_title = scrapy.Field()
+    poem_text = scrapy.Field()
+
+
+
+
+# class PoemItem(scrapy.Item):
