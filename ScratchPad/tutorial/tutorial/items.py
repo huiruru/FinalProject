@@ -8,7 +8,7 @@
 import scrapy
 
 
-class PoItem(scrapy.Item):
+class PoetItem(scrapy.Item):
     movement_name = scrapy.Field()
     movement_url = scrapy.Field()
     poet_name = scrapy.Field()
@@ -30,10 +30,13 @@ class PoItem(scrapy.Item):
     poet_posyears = scrapy.Field()
     poet_poems_url = scrapy.Field()
 
-    poem_yrpub = scrapy.Field()
+class PoemItem(scrapy.Item):
+    poet_poems_url = scrapy.Field()
     poem_link = scrapy.Field()
+    poem_yrpub = scrapy.Field()
     poem_title = scrapy.Field()
     poem_text = scrapy.Field()
+    poem_copyright = scrapy.Field
 
 
 
