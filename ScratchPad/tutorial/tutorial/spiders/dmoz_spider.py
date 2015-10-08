@@ -4,6 +4,7 @@ from tutorial.items import PoetItem, PoemItem
 import urlparse
 import re
 
+
 class DmozSpider(scrapy.Spider):
     name = "dmoz"
     allowed_domains = ["poets.org"]
@@ -12,20 +13,21 @@ class DmozSpider(scrapy.Spider):
     ]
 
     def parse(self, response):
-        item = PoetItem()
         hxs = scrapy.Selector(response)
         sites = hxs.xpath('//div[@class = "school_movements"]//ul/li/a')
         for s in sites:
-            item['movement_name'] = s.xpath('text()').extract()
+            movement_name = s.xpath('text()').extract()
             link = u''.join(s.xpath('@href').extract())
-            item['movement_url'] = urlparse.urljoin("http://www.poets.org",link)
-            yield scrapy.Request(url = urlparse.urljoin("http://www.poets.org",link), callback=self.parse_movement, meta = {'item': item}) 
+            movement_url = urlparse.urljoin("http://www.poets.org",link)
+            yield scrapy.Request(url = urlparse.urljoin("http://www.poets.org",link), callback=self.parse_movement, meta = {'movement_name': movement_name, 'movement_url':movement_url})
 
     def parse_movement(self, response):
-        item = response.meta['item']
         y = scrapy.Selector(response)
         s = y.xpath('//tbody/tr')
         for i in s:
+            item = PoetItem()
+            item['movement_name'] = response.meta['movement_name']
+            item['movement_url'] = response.meta['movement_url']
             if len(i.xpath('td/a/text()').extract())>0:
                 # print i.xpath('a/text()').extract()
                 item['poet_name'] = i.xpath('td/a/text()').extract()
@@ -61,7 +63,8 @@ class DmozSpider(scrapy.Spider):
 
         for i in poem_rows:
             poemitem = PoemItem()
-            poemitem['poet_poems_url'] = response.meta['poet_poems_url']
+            poet_poems_url = response.meta['poet_poems_url']
+            poemitem['poet_poems_url'] = poet_poems_url
 
             if len(i.xpath('td/a/@href').extract()[1]) > 0 :
                 poemlink = u''.join(i.xpath('a/@href').extract())
@@ -76,7 +79,6 @@ class DmozSpider(scrapy.Spider):
         nextpagelink = u''.join(y.xpath('//a[@title = "Go to next page"]/@href').extract())
         if len(nextpagelink) > 0:
             yield scrapy.Request(url = urlparse.urljoin("http://www.poets.org",nextpagelink), callback=self.parse_poet_poems, meta= {'poet_poems_url': poet_poems_url})
-
 
     def parse_poet_poem(self, response):
         poemitem = response.meta['poemitem']

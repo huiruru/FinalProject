@@ -36,7 +36,7 @@ class PoemItem(scrapy.Item):
     poem_yrpub = scrapy.Field()
     poem_title = scrapy.Field()
     poem_text = scrapy.Field()
-    poem_copyright = scrapy.Field
+    poem_copyright = scrapy.Field()
 
 
 
