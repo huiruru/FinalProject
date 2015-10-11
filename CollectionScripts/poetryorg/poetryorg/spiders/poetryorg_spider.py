@@ -67,7 +67,7 @@ class poetryspider(scrapy.Spider):
                 item['poet_dob2'] = row.xpath('td/span/text()').extract()
             if len(row.xpath('td/text()').extract())>0:
                 #a poet may be tagged/associated with multiple movements
-                item['poet_tags'] = row.xpath('text()').extract()
+                item['poet_tags'] = row.xpath('td/text()').extract()
             yield scrapy.Request(url =urlparse.urljoin("http://www.poets.org",link), callback=self.parse_poet,
                                  meta = {'item': item})
 
