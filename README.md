@@ -1,72 +1,170 @@
-# Final Project
+Final Project
+=============
+
 Contemporary American Poetry (post war to today)
 
-*This repository contains all the files including terrible notes and slow learning*
+ 
 
-Analysis Plan:
+*This repository contains all the files including terrible notes and slow
+learning*
 
-1. Specific Aim
-    
-    * Data Source: poetry.org, poetryfoundation
+*Repository \@*https://github.com/huiruru/FinalProject
 
-    * N (Sample Size): min 6K poems (length should be shorter than 1 page?)
-    
-    * Time Period (of data): Poems published between WWII and now
-    
-    * 1o Hypothesis: Given a particular poem text, it is possible to predict the poetic style or movement it is classified as.
+ 
 
-2. Methods
-    * Outcome: Poem classifications: Confessional vs Black Mountain, New York, Beat, vs Language
+Analysis Plan
 
-    * Predictors/Covar: Type Token ratio, Alliteration, Concrete object words, Abstract concept words, NEED dict of Political words, Psychological words
-    
-    * Algorithms: K means Cluster for unsupervised learning to see if 1o hyp., if 1o hyp then either logistic regression or bayes
+ 
 
-3. Result
+**Specific Aim**
 
-    Given a particular poem text, it is possible to predict the poetic style or movement it is classified as.
+    1.  Data Sources
 
-4. Limitations/Assumptions of my data
+        -   Primary source:
 
-    The most recent classification as agreed upon by "institutional" players actually represents the universe of Contemporary American Poetry accurately.
+            -   Poet information & poems scraped from the Academy of American
+                Poets website (https://www.poets.org)
 
-5. Expected Hurdles
-    
-    If 4. fails
+        -   Supplementary source:
 
-6. Where I need help
-    * NLTK
-    * Research Linguistics
+            -   Poet information & poems scraped from Poetry Foundation
+                (http://www.poetryfoundation.org)
 
-7. Going to have to repeat 1-6 for secondary hypothesis
+    2.  N (Sample Size)
 
+        -   \~1450 poems from 349 poets (poets.org), 20 movement/styles of poems
 
-Gather and explore these clusters:
-* Beat (2)
-  - characterized by its intentional defiance of the literary forms and standard narrative values of previous generations.
-  - a means of questioning societal norms, challenging materialism, exploring various types of spirituality and even challenging sexual normatives all in a question to defy and expand consciousness and explore limitless creativity.
-* Confessional (2)
-  - I
-  - Private, subjective experiences
-  - attention to prosody": e.g. rhythm, intonation
-* New York (2)
-  - surrealistic
-  - ironic
-* Black Mountain (1) aka. projective verse
-  - Composition by field" vs. "poetic composition based on received form and measure
-  - syntax be shaped by sound rather than sense, with nuances of breath and motion to be conveyed to the reader through typographical means
-  - one perception must immediately and directly lead to a further perception
-* Language Poetry
-  - focus on language, interaction with reader, engaging the reader into the process of producing meaning from the text
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Contemporary                 202
+Modernism                     15
+Formalism                     14
+Language Poetry               13
+Surrealism                    12
+Confessional Poetry           11
+New York School               11
+Beat                          11
+Black Arts                     9
+Symbolists                     8
+Jazz Poetry                    7
+Harlem Renaissance             7
+Conceptual Poetry              6
+Objectivists                   6
+Black Mountain                 4
+Dark Room Collective           4
+Concrete Poetry                3
+San Francisco Renaissance      3
+Slam/Spoken Word               2
+New Formalism                  1
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-### Extra Pastries: 
-Poetry Recommender tool
+    -   \~ 200 poems from \~100 poets (poetryfoundation.org), supplements some
+        of the movement/styles we are lacking in data for in the primary source.
 
-To investigate conceptual trends in American contemporary poetry create graphs/charts from the data. 
+    -   Time Period (of data): Poems published between WWII and now
 
-----
-__Design__
+    -   1o Hypothesis: unsupervised learning on the poems to look for patterns
+        associated with the movement/classification
 
-1. scrapy
-2. mongodb
-3. NLTK
+    -   Secondary Hypothesis: it is possible to predict the poetic style or
+        movement it has been classified/tagged with.
+
+     
+
+**Methods**
+
+1.  Outcome:
+
+        -   By running unsupervised learning on the poem texts, we can decide
+            whether to go ahead with the secondary hypothesis
+
+2.  Predictors/Covar:
+
+        -   Poet age
+
+        -   If poet is dead
+
+        -   Year published
+
+        -   Poet’s geographical location: city, state, etc.
+
+        -   Type Token ratio
+
+        -   Alliteration: use nltk.corpus.cmudict to look at sounds
+
+        -   Concrete object words = total number of concrete nouns/total number
+            of abstract nouns
+
+        -   Abstract concept words = total number of abstract nouns/the number
+            of concrete nouns
+
+        -   Avg named entities - e.g. foreign countries
+
+        -   Length (number of lines), avg \# of words
+
+        -   ? reference to subject (prounoun: I)
+
+        -   Visual, sense adjectives/descriptions
+
+        -   Political nature of text
+
+3.  Algorithms:
+
+    -   K means Cluster for unsupervised learning to see if 1o hyp., if 1o hyp
+        then either logistic regression or naive bayes
+
+     
+
+**Result**
+
+    That there are distinctions between groups of poems that align with the
+    particular movement/poetic style
+
+1.  Limitations/Assumptions of my data:
+
+    -   2000 poems is not a large dataset, I am severely limited by the data I
+        use. The data also needs to be cleaned up and is error prone.
+
+    -   The most recent classification as agreed upon by "institutional" players
+        actually represents the universe of contemporary American poetry
+        accurately.
+
+2.  Expected Hurdles
+
+    -   Figuring out how to group movement/styles (due to lack of data)
+
+    -   Dirty data, bad calculations
+
+3.  Where I need help
+
+    -   NLTK
+
+    -   Linguistics
+
+4.  Going to have to repeat all steps for secondary hypothesis
+
+ 
+
+**Design**
+
+Libraries
+
+1.  Webscraping:
+
+    -   scrapy, BeautifulSoup (for secondary source - javascript pages, scrapy
+        not working)
+
+2.  Data retrieval, storage:
+
+    -   pymongo - Mongodb db
+
+3.  Text:
+
+    -   NLTK
+
+    -   Alchemy API
+
+    -   Conceptnet
+
+    -   maybe doc2vec
+
+ 
