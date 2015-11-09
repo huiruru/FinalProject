@@ -21,20 +21,28 @@ Modern = ['Modernism', 'Beat', 'SanFranciscoRenaissance', 'HarlemRenaissance', '
 Trad =['Formalism', 'NewFormalism', 'FiresidePoet']
 
 
-def labler(text):
-    """input primary tags and outputs labels as defined in script"""
+def labler(text, textlabel = False):
+    """input primary tags and outputs labels as defined in script
+    if textlabel = True, then outputs labels as strings
+    """
+    label = None
     t = []
     t.append(str(text))
 #     print t
-    label = 0
-#     if len(set(t).intersection(Exp))>0:
-#         label = 0
-    if len(set(t).intersection(Contemp))>0:
-        label = 1
-#     if len(set(t).intersection(Modern))>0:
-#         label = 'Modern'
-#     if len(set(t).intersection(Trad))>0:
-#         label = 'Trad'
+    if textlabel == False:
+        label = 0
+        if len(set(t).intersection(Contemp))>0:
+            label = 1
+    else:
+        label = ''
+        if len(set(t).intersection(Exp))>0:
+            label = 'Exp'
+        if len(set(t).intersection(Contemp))>0:
+            label = 'Contemp'
+        if len(set(t).intersection(Modern))>0:
+            label = 'Modern'
+        if len(set(t).intersection(Trad))>0:
+            label = 'Trad'
     return label
 
 """RegexpParser pattern definitions"""
