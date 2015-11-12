@@ -1,4 +1,5 @@
 ## An Analysis of Contemporary American Poetry Using K means Clustering & NLTK
+####*General Assembly Data Science Course Final Project November 2015*
 
 ### Specific Aim
 
@@ -9,7 +10,7 @@ Then I used an unsupervised learning method, K-means clustering, to see if these
 ###Design
 *please note that this is a work in progress and I may make a ton of changes*
 
-**please check out the Final Project powerpoint presentation for quick overview of process**
+**please check out the Final Project powerpoint presentation that I created for the class for a quick overview of process**
 
 ####Libraries Used
 * Scrapy
