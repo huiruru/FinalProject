@@ -1,176 +1,74 @@
-Final Project
-=============
+## An Analysis of Contemporary American Poetry Using K means Clustering & NLTK
 
-Contemporary American Poetry (post war to today)
+### Specific Aim
 
- 
+For this project I applied Natural Language Processing methods to break down the corpus of Contemporary American Poems as scraped from the Academy of American Poets website into numerical representations of the text in terms of style.
 
-*Repository \@*https://github.com/huiruru/FinalProject
+Then I used an unsupervised learning method, K-means clustering, to see if these poems would naturally cluster into groups that may or may not represent meaningful stylistic differences.
 
- 
+###Design
+*please note that this is a work in progress and I may make a ton of changes*
 
-Analysis Plan
--------------
+**please check out the Final Project powerpoint presentation for quick overview of process**
 
- 
+####Libraries Used
+* Scrapy
+* Pymongo
+* Pandas
+* Numpy
+* SciKit Learn
+* NLTK
+* Seaborn
 
-**Specific Aim**
+####Data Storage
+* Mongodb
 
--   Data Sources
+###Steps to Reproduce
 
-    -   Primary source:
+1 Extract From Academy of American Poets Website using Scrapy project
+* Currently the project is set to pipe to Mongo database however, to output to json or other format, please change the configurations in settings.py
+* Go to Extract/poetryorg directory and run from terminal $ scrapy crawl poetryspider
 
-        -   Poet information & poems scraped from the Academy of American Poets
-            website (https://www.poets.org)
+2 Optional: Store in Mongo Database with two collections: Poets & Poems
 
-    -   Supplementary source:
+3 Go to Transform directory and run Ipython notebooks PoetDataProcessing then PoemDataProcessing (PoemDataProcessing can take up to 3 hours)
 
-        -   Poet information & poems scraped from Poetry Foundation
-            (http://www.poetryfoundation.org)
+4 Make sure you have ExtractHelper.py in the directory as it contains all the helper methods (docstrings available) needed to extract feature variables
 
--   N (Sample Size)
+5 Go to Analysis directory and run ipython notebook Feature Selection
 
-    -   \~1450 poems from 349 poets (poets.org), 20 movement/styles of poems
+6 Run ipython notebook Kmeans
 
-    -   200 poems from \~100 poets (poetryfoundation.org), supplements some of
-        the movement/styles we are lacking in data for in the primary source.
+7 Run ipython notebook Kmeans\_with\_scaled
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Contemporary                 202
-Modernism                     15
-Formalism                     14
-Language Poetry               13
-Surrealism                    12
-Confessional Poetry           11
-New York School               11
-Beat                          11
-Black Arts                     9
-Symbolists                     8
-Jazz Poetry                    7
-Harlem Renaissance             7
-Conceptual Poetry              6
-Objectivists                   6
-Black Mountain                 4
-Dark Room Collective           4
-Concrete Poetry                3
-San Francisco Renaissance      3
-Slam/Spoken Word               2
-New Formalism                  1
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+###About the Raw Data
 
- 
+* 1,467 poems were scraped from twenty 21st century poetic movements and represent the works of 349 poets published between 1900 and 2015
 
--   Time Period (of data): Poems published between WWII and now
+* There were many different ways of obtaining this data using Scrapy but I chose to scrape only the works from poets that were tagged to a specific movement
 
--   1o Hypothesis:
+* I also scraped the biographical and geographical (if any) information from the poets because why not? Perhaps something could be done with that information if not now, then later
 
-    -   unsupervised learning on the poems to look for patterns associated with
-        the movement/classification
+* Some poets and their works had additional movement tags
 
--   Secondary Hypothesis: it is possible to predict the poetic style or movement
-    it has been classified/tagged with.
+###Feature Variables Defined Below
 
- 
+* Average line per stanza - the average number of lines that a stanza has within a poem
+* Enjambent Score – this is the total number of line breaks within each sentence divided by the total number of sentences in the poem
+* Type Token Ratio – number of distinct words over the total number of word
+* Abstraction Score - a score representing the abstractness of the poem. It is calculated by 1) tokenizing each sentence into words, 2) using nltk’s parts of speech tagger to label each word, 3) taking each noun tagged word and looking up the noun synsets available in wordnet (nltk) 4) because each noun has multiple senses, I take the total number of abstract senses and divide it against the total number of concrete senses in order calculate how abstract the noun is 5) all the abstraction scores for all the nouns are averaged.
+* Lesk Abstraction Score – a score representing the abstractness of the poem in the same way as the abstraction\_score is calculated with the exception being that I am using nltk’s lesk algorithm to calculate the best sense of the noun in its sentence then using that sense to look at how abstract that is, and the score is for all the nouns averaged
+* Title Lesk Abstraction Score – same as above except for just the title
+* Pronoun Score - this is the distinct number of pronoun occurrences referring to the subject or reader divided by the total number of sentences in the poem
+* Conjunction Score - this is the number of conjunctions and subordinate conjunctions found in the poem divided by the total number of sentences
+* Noun, Verb, and Adjective Phrase Ratio - this is ratio of the noun, verb, or adjective phrases over the total number of noun, verb, and adjective phrases found in the text
+* Average Noun, Verb, and Adjective Phrase Complexity Score - I define a phrase as complex when it contains more than one word. This is divided by the total number of phrases within each poem.
+* 1 word, 2 word, and 3 word noun phrase frequency ratio - these variables stand for the frequency of 1, 2, or 3 word noun phrases within each poem
 
-**Methods**
-
-1.  Outcome:
-
-    -   By running unsupervised learning on the poem texts, we can decide
-        whether to go ahead with the secondary hypothesis
-
-2.  Predictors/Covar:
-
-    -   Poet age
-
-    -   If poet is dead
-
-    -   Year published
-
-    -   Poet’s geographical location: city, state, etc.
-
-    -   Type Token ratio
-
-    -   Alliteration: use nltk.corpus.cmudict to look at sounds
-
-    -   Concrete object words = total number of concrete nouns/total number of
-        abstract nouns
-
-    -   Abstract concept words = total number of abstract nouns/the number of
-        concrete nouns
-
-    -   Avg named entities - e.g. foreign countries
-
-    -   Length (number of lines), avg \\\# of words
-
-    -   reference to subject (prounoun: I)
-
-    -   Visual, sense adjectives/descriptions
-
-    -   Political nature of text
-
-     
-
-3.  Algorithms:
-
-    -   K means Cluster for unsupervised learning to see if 1o hyp., if 1o hyp
-        then either logistic regression or naive bayes
-
-     
-
-**Result**
-
-That there are distinctions between groups of poems that align with the
-particular movement/poetic style
-
- 
-
-1.  Limitations/Assumptions of my data:
-
-    -   2000 poems is not a large dataset, I am severely limited by the data I
-        use. The data also needs to be cleaned up and is error prone.
-
-    -   The most recent classification as agreed upon by "institutional" players
-        actually represents the universe of contemporary American poetry
-        accurately.
-
-2.  Expected Hurdles
-
-    -   Figuring out how to group movement/styles (due to lack of data)
-
-    -   Dirty data, bad calculations
-
-3.  Where I need help
-
-    -   NLTK
-
-    -   Linguistics
-
-4.  Going to have to repeat all steps for secondary hypothesis
-
- 
-
-**Design**
-
-Libraries
-
-1.  Webscraping:
-
-    -   scrapy, BeautifulSoup (for secondary source - javascript pages, scrapy
-        not working)
-
-2.  Data retrieval, storage:
-
-    -   pymongo - Mongodb db
-
-3.  Text:
-
-    -   NLTK
-
-    -   Alchemy API
-
-    -   Conceptnet
-
-    -   maybe doc2vec
-
- 
+###Ousted Variables:
+* wordcount - the total number of words that a poem has
+* wordcount\_d - the distinct number of words that a poem has
+* numlines - the number of lines that a poem text has
+* numstanzas - the number of stanzas that a poem text has
+* yrpub - the year the poem was published, two poems were missing the yr published so I just got rid of them
+* num\_sentences - the number of sentences that a poem has
